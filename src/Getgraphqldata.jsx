@@ -1,30 +1,31 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client';
+import { useState } from 'react';
 import './App.css'
+import Getmoredata from './Getmoredata';
 const GET_MESSAGES = gql`
-query getmessages {
-    messages {
-      type
-      size
-      items {
+query getMessages {
+  messages {
+    size
+    items {
+      id
+      subject
+      author {
         id
-        subject
-        body
-        board {
-          type
-          id
-        }
-        view_href
-        conversation {
-          style
-        }
+        login
       }
+      body
+      kudos {
+        size
+      }
+      view_href
     }
   }
+}
 `;
 
-export default function Getgraphqldata() {
-   
+export default function Getgraphqldata() { 
+
     const { loading, error, data} = useQuery(GET_MESSAGES);
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : {error.message}</p>;
@@ -32,17 +33,10 @@ export default function Getgraphqldata() {
 //   return (
 //     console.log("This is data from GraphQl",data)
 //   )
-return data.messages.items.map((res) => (
-    <div key={res.id} className='msg-details'>
-      <h3>Title: {res.subject}</h3>
-      <br />
-      <b>About this Artile:</b>
-      <div dangerouslySetInnerHTML={{ __html: res.body }}></div>
-      <br />
-      <b>Board:</b>
-      <p>{res.board.id}</p>
-      <br />
-    </div>
-
-  ));
+return data.messages.items.map((item) => {
+  return(
+    <Getmoredata res={item}/>
+  )
+});
 }
+

@@ -10,3 +10,22 @@
     background: floralwhite;
     margin-bottom: 2px;
 }
+.popup-message-details{
+  display: none;
+}
+.msg_active{
+  display: flex;
+  height: 89px;
+  width: 150px;
+  border: 2px solid;
+  background: darkcyan;
+  padding-top: 30px;
+  text-align: center;
+  flex-direction: column;
+}
+.cancel-btn{
+  margin-top: 9px;
+  padding-top: 0px;
+  height: 26px;
+  width: 0px;
+}
